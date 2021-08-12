@@ -23,3 +23,11 @@ target_link_libraries(window rt)
 add_executable(frame frame.cpp xdg-shell-protocol.c)
 target_link_libraries(frame wayland-client)
 target_link_libraries(frame rt)
+
+add_executable(input_cap input_cap.cpp xdg-shell-protocol.c)
+target_link_libraries(input_cap wayland-client)
+target_link_libraries(input_cap rt)
+
+add_executable(pnt_events pnt_events.cpp xdg-shell-protocol.c)
+target_link_libraries(pnt_events wayland-client)
+target_link_libraries(pnt_events rt)
