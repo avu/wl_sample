@@ -19,3 +19,7 @@ target_link_libraries(compositor rt)
 add_executable(window window.cpp xdg-shell-protocol.c)
 target_link_libraries(window wayland-client)
 target_link_libraries(window rt)
+
+add_executable(frame frame.cpp xdg-shell-protocol.c)
+target_link_libraries(frame wayland-client)
+target_link_libraries(frame rt)
