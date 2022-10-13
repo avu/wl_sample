@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.20)
 project(wl_sample)
 
 set(CMAKE_CXX_STANDARD 14)
-
+add_compile_options(-fpermissive)
 add_executable(display_connect display_connect.cpp)
 target_link_libraries(display_connect wayland-client)
 
@@ -31,3 +31,7 @@ target_link_libraries(input_cap rt)
 add_executable(pnt_events pnt_events.cpp xdg-shell-protocol.c)
 target_link_libraries(pnt_events wayland-client)
 target_link_libraries(pnt_events rt)
+
+add_executable(key_events key_events.cpp xdg-shell-protocol.c)
+target_link_libraries(key_events wayland-client)
+target_link_libraries(key_events rt xkbcommon)
