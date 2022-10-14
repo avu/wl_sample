@@ -35,3 +35,7 @@ target_link_libraries(pnt_events rt)
 add_executable(key_events key_events.cpp xdg-shell-protocol.c)
 target_link_libraries(key_events wayland-client)
 target_link_libraries(key_events rt xkbcommon)
+
+add_executable(egl_window egl_window.cpp xdg-shell-protocol.c)
+target_link_libraries(egl_window wayland-client)
+target_link_libraries(egl_window wayland-egl EGL GLESv2)
