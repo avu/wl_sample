@@ -3,6 +3,10 @@ project(wl_sample)
 
 set(CMAKE_CXX_STANDARD 14)
 add_compile_options(-fpermissive)
+
+find_package(Vulkan)
+find_package(Threads REQUIRED)
+
 add_executable(display_connect display_connect.cpp)
 target_link_libraries(display_connect wayland-client)
 
@@ -39,3 +43,10 @@ target_link_libraries(key_events rt xkbcommon)
 add_executable(egl_window egl_window.cpp xdg-shell-protocol.c)
 target_link_libraries(egl_window wayland-client)
 target_link_libraries(egl_window wayland-egl EGL GLESv2)
+
+add_executable(vulkan_window vulkan_window.cpp xdg-shell-protocol.c
+        vulkan_device.cpp
+        vulkan_base.cpp
+        vulkan_swap_chain.cpp
+        )
+target_link_libraries(vulkan_window wayland-client ${Vulkan_LIBRARY} )
