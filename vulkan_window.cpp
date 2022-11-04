@@ -925,12 +925,6 @@ public:
             return;
         draw();
     }
-
-    virtual void viewChanged()
-    {
-        // This function is called by the base example class each time the view is changed by user input
-        updateUniformBuffers();
-    }
 };
 
 VulkanExample *vulkanExample;

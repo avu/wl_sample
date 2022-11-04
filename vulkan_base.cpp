@@ -132,7 +132,7 @@ void VulkanBase::destroyCommandBuffers()
 
 std::string VulkanBase::getShadersPath() const
 {
-	return "/home/avu/CLionProjects/wl_sample/";
+	return "";
 }
 
 void VulkanBase::createPipelineCache()
