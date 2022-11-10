@@ -55,7 +55,6 @@ protected:
 	VkPhysicalDeviceMemoryProperties deviceMemoryProperties;
 	VkPhysicalDeviceFeatures enabledFeatures{};
 	std::vector<const char*> enabledDeviceExtensions;
-	std::vector<const char*> enabledInstanceExtensions;
 	void* deviceCreatepNextChain = nullptr;
 	VkDevice device;
 	VkQueue queue;
@@ -92,8 +91,6 @@ public:
 
 	std::string title = "Vulkan Example";
 	std::string name = "vulkanExample";
-	uint32_t apiVersion = VK_API_VERSION_1_0;
-
 	struct {
 		VkImage image;
 		VkDeviceMemory mem;

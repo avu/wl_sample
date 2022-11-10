@@ -39,62 +39,16 @@ VkBool32 getSupportedDepthFormat(VkPhysicalDevice physicalDevice, VkFormat *dept
 
 VkResult VulkanBase::createInstance()
 {
+    const char* instanceExtensions[] = { VK_KHR_SURFACE_EXTENSION_NAME,  VK_KHR_WAYLAND_SURFACE_EXTENSION_NAME};
 
-	VkApplicationInfo appInfo = {};
-	appInfo.sType = VK_STRUCTURE_TYPE_APPLICATION_INFO;
-	appInfo.pApplicationName = name.c_str();
-	appInfo.pEngineName = name.c_str();
-	appInfo.apiVersion = apiVersion;
-
-	std::vector<const char*> instanceExtensions = { VK_KHR_SURFACE_EXTENSION_NAME };
-
-	// Enable surface extensions depending on os
-	instanceExtensions.push_back(VK_KHR_WAYLAND_SURFACE_EXTENSION_NAME);
-
-	// Get extensions supported by the instance and store for later use
-	uint32_t extCount = 0;
-	vkEnumerateInstanceExtensionProperties(nullptr, &extCount, nullptr);
-	if (extCount > 0)
-	{
-		std::vector<VkExtensionProperties> extensions(extCount);
-		if (vkEnumerateInstanceExtensionProperties(nullptr, &extCount, &extensions.front()) == VK_SUCCESS)
-		{
-			for (VkExtensionProperties extension : extensions)
-			{
-				supportedInstanceExtensions.push_back(extension.extensionName);
-			}
-		}
-	}
-
-	// Enabled requested instance extensions
-	if (enabledInstanceExtensions.size() > 0) 
-	{
-		for (const char * enabledExtension : enabledInstanceExtensions) 
-		{
-			// Output message if requested extension is not available
-			if (std::find(supportedInstanceExtensions.begin(), supportedInstanceExtensions.end(), enabledExtension) == supportedInstanceExtensions.end())
-			{
-				std::cerr << "Enabled instance extension \"" << enabledExtension << "\" is not present at instance level\n";
-			}
-			instanceExtensions.push_back(enabledExtension);
-		}
-	}
-
-	VkInstanceCreateInfo instanceCreateInfo = {};
+    VkInstanceCreateInfo instanceCreateInfo = {};
 	instanceCreateInfo.sType = VK_STRUCTURE_TYPE_INSTANCE_CREATE_INFO;
 	instanceCreateInfo.pNext = NULL;
-	instanceCreateInfo.pApplicationInfo = &appInfo;
+	instanceCreateInfo.pApplicationInfo = NULL;
 
+    instanceCreateInfo.enabledExtensionCount = 2;
+    instanceCreateInfo.ppEnabledExtensionNames = instanceExtensions;
 
-	if (instanceExtensions.size() > 0)
-	{
-		instanceCreateInfo.enabledExtensionCount = (uint32_t)instanceExtensions.size();
-		instanceCreateInfo.ppEnabledExtensionNames = instanceExtensions.data();
-	}
-
-	// The VK_LAYER_KHRONOS_validation contains all current validation functionality.
-	// Note that on Android this layer requires at least NDK r20
-	const char* validationLayerName = "VK_LAYER_KHRONOS_validation";
 	return vkCreateInstance(&instanceCreateInfo, nullptr, &instance);
 }
 
